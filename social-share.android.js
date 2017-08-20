@@ -54,5 +54,59 @@ module.exports = {
 		intent.putExtra(android.content.Intent.EXTRA_SUBJECT, text);
 
 		share(intent, subject);
+	},
+	shareGeneric: function(filename, content, subject) {
+		var intent = getIntent("*/*");
+		context = application.android.context;
+
+		var newFile = new java.io.File(context.getExternalFilesDir(null), filename);
+
+		var fos = new java.io.FileOutputStream(newFile);
+		fos.write(new java.lang.String(content).getBytes());
+		fos.flush();
+		fos.close();
+
+		intent.putExtra(android.content.Intent.EXTRA_STREAM, android.net.Uri.fromFile(newFile));
+
+		share(intent, subject);
+	},
+	shareCsv: function(filename, content, subject) {
+		var intent = getIntent('text/csv');
+
+		context = application.android.context;
+
+		var newFile = new java.io.File(context.getExternalFilesDir(null), filename);
+
+		var fos = new java.io.FileOutputStream(newFile);
+		fos.write(new java.lang.String(content).getBytes());
+		fos.flush();
+		fos.close();
+
+		intent.putExtra(android.content.Intent.EXTRA_STREAM, android.net.Uri.fromFile(newFile));
+
+		share(intent, subject);
+	},
+	shareCustomMimeType: function(filename, content, mimeType, subject) {
+		var intent = getIntent(mimeType);
+		context = application.android.context;
+
+		var newFile = new java.io.File(context.getExternalFilesDir(null), filename);
+
+		var fos = new java.io.FileOutputStream(newFile);
+		fos.write(new java.lang.String(content).getBytes());
+		fos.flush();
+		fos.close();
+
+		intent.putExtra(android.content.Intent.EXTRA_STREAM, android.net.Uri.fromFile(newFile));
+
+		share(intent, subject);
 	}
 };
+
+function getExtension(filename) {
+	var tokens = filename.split('.');
+	if (tokens.length < 2) {
+		return null;
+	}
+	return tokens[tokens.length - 1];
+}

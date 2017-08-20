@@ -23,3 +23,34 @@
      * @param {string} [subject] - The subject of the share *** ANDROID ONLY ***
      */
     export function shareUrl(url: string, text: string, subject?: string);
+
+
+    /**
+     * Share using the * mime type *** ANDROID ONLY ***
+     * 
+     * @export
+     * @param {string} fileName - the filename that should be used
+     * @param {string} content - the file contents
+     * @param {string} [subject] - the subject of the share
+     */
+    export function shareGeneric(fileName: string, content: string, subject?: string);
+
+    /**
+     * Share using the CSV mime type *** ANDROID ONLY ***
+     * 
+     * @export
+     * @param {string} fileName - the filename that should be used
+     * @param {string} content - the file contents
+     * @param {string} [subject] - the subject of the share
+     */
+    export function shareCsv(filename: string, content: string, subject?: string);
+
+    /**
+     * Share using the a custom mime type *** ANDROID ONLY ***
+     * 
+     * @export
+     * @param {string} fileName - the filename that should be used
+     * @param {string} content - the file contents
+     * @param {string} [subject] - the subject of the share
+     */
+    export function shareCustomMimeType(filename: string, content: string, mimeType: string, subject?: string)
